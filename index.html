@@ -1,0 +1,272 @@
+<!-- ===================== INDEX.HTML ===================== -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="أفضل متجر إلكتروني لبيع الأجهزة الإلكترونية بأفضل الأسعار">
+  <meta name="keywords" content="متجر, إلكترونيات, شراء, بيع, أجهزة">
+  <meta name="author" content="متجر العبيد">
+  
+  <meta property="og:title" content="متجر العبيد - متجر إلكتروني">
+  <meta property="og:description" content="تسوق أفضل المنتجات الإلكترونية بأسعار مناسبة وجودة عالية">
+  <meta property="og:image" content="https://your-domain.com/preview.jpg">
+  <meta property="og:url" content="https://your-domain.com">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="متجر العبيد - متجر إلكتروني">
+  <meta name="twitter:description" content="أفضل متجر إلكتروني لبيع الأجهزة والمنتجات التقنية">
+  <meta name="twitter:image" content="https://your-domain.com/preview.jpg">
+  
+  <title>متجر العبيد</title>
+
+  <style>
+    :root{
+      --orange:#ff7a00;
+      --bg:#f5f5f5;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial;
+    }
+
+    body{
+      background:var(--bg);
+    }
+
+    /* NAVBAR */
+    .navbar{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      background:var(--orange);
+      color:white;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px 20px;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .logo{
+      font-weight:bold;
+      font-size:20px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    .nav-links a{
+      color:white;
+      text-decoration:none;
+      font-size:14px;
+    }
+
+    .btn{
+      background:white;
+      color:var(--orange);
+      border:none;
+      padding:6px 10px;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    .burger{
+      display:none;
+      flex-direction:column;
+      cursor:pointer;
+    }
+
+    .burger div{
+      width:25px;
+      height:3px;
+      background:white;
+      margin:3px;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      position:fixed;
+      top:0;
+      right:-260px;
+      width:250px;
+      height:100%;
+      background:var(--orange);
+      color:white;
+      padding:20px;
+      transition:0.3s;
+      z-index:2000;
+    }
+
+    .sidebar a{
+      display:block;
+      color:white;
+      margin:15px 0;
+      text-decoration:none;
+    }
+
+    /* MAIN CONTAINER */
+    .container{
+      max-width:1200px;
+      margin:100px auto 40px auto;
+      padding:0 15px;
+    }
+
+    /* HERO */
+    .hero{
+      background:url('https://images.unsplash.com/photo-1523275335684-37898b6baf30') center/cover;
+      height:300px;
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:32px;
+      font-weight:bold;
+      margin-bottom:30px;
+    }
+
+    /* PRODUCTS GRID */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 2px 10px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+    }
+
+    .card-body{
+      padding:10px;
+    }
+
+    .buy{
+      width:100%;
+      padding:8px;
+      border:none;
+      background:var(--orange);
+      color:white;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:8px;
+    }
+
+    @media(max-width:768px){
+      .nav-links{display:none}
+      .burger{display:flex}
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <a href="#">Home</a>
+  <a href="#products">Products</a>
+  <a href="login.html">Login</a>
+  <a href="#" onclick="toggleSidebar()">Close</a>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">🛒متجر العبيد  </div>
+
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#products">Products</a>
+    <a href="login.html">Login</a>
+  </div>
+
+  <div class="burger" onclick="toggleSidebar()">
+    <div></div><div></div><div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <div class="hero">أفضل متجر إلكتروني</div>
+
+  <div class="grid" id="products"></div>
+
+</div>
+
+<script>
+const products = [
+  { name:"SSD 1TB", price:"110$", img:"https://images.unsplash.com/photo-1587829741301-dc798b83add3" },
+  {name:"Laptop Pro",price:"900$",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8"},
+  {name:"Phone X",price:"700$",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {name:"Headphones",price:"120$",img:"https://images.unsplash.com/photo-1518441902117-f0a0f9c8b5b3"},
+  {name:"Watch",price:"200$",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30"},
+  {name:"Tablet",price:"350$",img:"https://images.unsplash.com/photo-1561154464-82e9adf32764"},
+  {name:"Camera",price:"500$",img:"https://images.unsplash.com/photo-1519183071298-a2962be96b47"},
+  {name:"Shoes",price:"90$",img:"https://images.unsplash.com/photo-1528701800489-20be3c1c7f9c"},
+  {name:"Bag",price:"60$",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"},
+  {name:"Keyboard",price:"80$",img:"https://images.unsplash.com/photo-1515879218367-8466d910aaa4"},
+  {name:"Mouse",price:"40$",img:"https://images.unsplash.com/photo-1527814050087-3793815479db"},
+];
+
+function load(){
+  const box = document.getElementById("products");
+  box.innerHTML = "";
+
+  products.forEach(p=>{
+    box.innerHTML += `
+      <div class="card">
+        <img src="${p.img}" />
+        <div class="card-body">
+          <h3>${p.name}</h3>
+          <p>${p.price}</p>
+          <button class="buy" onclick="buy('${p.name}')">Buy</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function buy(name){
+  fetch("https://webhook.site/c6d8c164-68c9-46ad-9c49-78a676e7645d",{
+    method:"POST",
+    mode:"no-cors",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify({product:name})
+  });
+}
+
+function toggleSidebar(){
+  const s=document.getElementById("sidebar");
+  s.style.right = (s.style.right=="0px"?"-260px":"0px");
+}
+
+load();
+</script>
+
+</body>
+</html>

